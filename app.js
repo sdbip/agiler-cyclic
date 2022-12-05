@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-var express = require('express');
-const http = require('http');
+import express, { json, urlencoded, Router } from 'express';
+import { createServer } from 'http';
 
 var app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 
-var router = express.Router();
+var router = Router();
 router.get('/', function(req, res, next) {
   res.json({message: 'alive', test: process.env.TEST});
 });
@@ -16,5 +16,5 @@ app.use('/', router);
 const port = process.env.PORT ?? 80
 app.set('port', port);
 
-const server = http.createServer(app);
+const server = createServer(app);
 server.listen(port);
