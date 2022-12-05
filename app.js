@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 var express = require('express');
+const http = require('http');
 
 var app = express();
 
@@ -11,4 +13,8 @@ router.get('/', function(req, res, next) {
 });
 app.use('/', router);
 
-module.exports = app;
+const port = 80
+app.set('port', port);
+
+const server = http.createServer(app);
+server.listen(port);
